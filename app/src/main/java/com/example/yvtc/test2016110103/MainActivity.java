@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     int ch = -1;
     int tmp = -1;
+    boolean b[] = new boolean[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,10 +104,43 @@ public class MainActivity extends AppCompatActivity {
                 tv4.setText(drinks[which]);
             }
         });
-
+        builder.setCancelable(false);
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.show();
+    }
+    public void click5(View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("多選項對話框測試");
+        builder.setMultiChoiceItems(R.array.drinks,b, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+            }
+        });
+        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                StringBuilder sb = new StringBuilder();
+                for (int i=0;i<=3;i++)
+                {
+                    if (b[i])
+                    {
+                        sb.append(String.valueOf(i + ","));
+                    }
+                }
+                TextView tv5 = (TextView) findViewById(R.id.textView4);
+                tv5.setText(sb.toString());
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
             }
         });
         builder.show();
