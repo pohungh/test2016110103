@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    int ch = -1;
+    int tmp = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,36 @@ public class MainActivity extends AppCompatActivity {
                     TextView tv2 = (TextView) findViewById(R.id.textView);
                     String str = ed.getText().toString();
                     tv2.setText(str);
+                }
+            });
+            builder.show();
+        }
+        public void click3(View v)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("選項測試框測試");
+            builder.setSingleChoiceItems(R.array.drinks,ch, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    tmp = which;
+                }
+            });
+            builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ch = tmp;
+                    if (ch >= 0) {
+                        String[] drinks = getResources().getStringArray(R.array.drinks);
+                        TextView tv3 = (TextView) findViewById(R.id.textView2);
+                        tv3.setText(drinks[ch]);
+                    }
+                }
+            });
+
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    tmp = ch;
                 }
             });
             builder.show();
