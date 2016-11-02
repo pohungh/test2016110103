@@ -1,10 +1,13 @@
 package com.example.yvtc.test2016110103;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -147,5 +150,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+    public void click6(View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("輸入對話框測試");
+        builder.setMessage("請輸入你的暱稱");
+
+        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+        View myv = inflater.inflate(R.layout.myview, null);
+
+        final TextView tt = (TextView) myv.findViewById(R.id.textView5);
+        Button bb = (Button) myv.findViewById(R.id.button7);
+        bb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tt.setText("Click!! Click!!");
+            }
+        });
+
+        builder.setView(myv);
+
+        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.show();
+    }
+    public void click7(View v)
+    {
+        final ProgressDialog pd = new ProgressDialog(MainActivity.this);
+        pd.setTitle("測試");
+        pd.setMessage("載入中，請稍候....");
+        pd.setCancelable(false);
+        pd.show();
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pd.dismiss();
+                    }
+                });
+            }
+        }.start();
     }
 }
